@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bg-image-container {
+            /* Image from Unsplash - Photo by Priscilla Du Preez */
+            background-image: url('https://assets.collegedunia.com/public/image/image_83__8f17d5227df9d519ca04ae7db44d62ce.webp');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex min-h-screen">
+        <!-- Left Panel with Background Image -->
+        <div class="hidden lg:flex w-1/2 bg-image-container relative items-center justify-center">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
+            
+            <div class="relative text-center text-white px-10 z-10">
+                <!-- === ICON REPLACED WITH IMAGE HERE === -->
+                <img src="https://facultytub.com/wp-content/uploads/2023/12/bitswgl_logo.jpeg" alt="Bits Portal Logo" class="mx-auto mb-6 h-24 w-auto rounded-full">
+                
+                <h1 class="text-5xl font-bold tracking-tight">Bits Fee Management System</h1>
+                <p class="mt-4 text-lg max-w-md mx-auto opacity-90">
+                    Your gateway to academic success. Access your fees, profile, and more.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Panel with Login Form -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
+            <main class="w-full max-w-md mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8 sm:p-10">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800">Student Sign In</h1>
+                        <p class="text-gray-500 mt-2">Welcome back! Please enter your details.</p>
+                    </div>
+                    
+                    <form id="login-form" action="login.php" method="POST" class="space-y-6">
+                        <div>
+                            <label for="student-id-card" class="block text-sm font-medium text-gray-700">Student ID</label>
+                            <input type="text" id="student-id-card" name="student_id_card" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., CS2025001" required>
+                        </div>
+
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" id="password" name="password" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="••••••••" required>
+                        </div>
+                        
+                        
+
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105">
+                                Sign In
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="admin_login.html" class="text-sm font-medium text-blue-600 hover:text-blue-500">
+                                Are you an administrator? Login here
+                            </a>
+                        </div>
+
+                         <div class="mt-4 text-center text-sm text-gray-600">
+                    Don't have an account? <a href="register.html" class="font-medium text-blue-600 hover:text-blue-500">Register now</a>
+                </div>
+                
+                    </form>
+                </div>
+                 <p class="text-center text-sm text-gray-500 mt-6">
+                    &copy; 2025 University Portal. All rights reserved.
+                </p>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const error = params.get('error');
+            if (error) {
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = decodeURIComponent(error);
+            }
+        });
+    </script>
+</body>
+</html>
+

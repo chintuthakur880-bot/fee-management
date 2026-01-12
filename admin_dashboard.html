@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BITS Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; }
+        .modal-overlay { transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3"><img src="https://bitswgl.ac.in/assets/img/logos/logo.png" alt="BITS Logo" class="h-12"><h1 class="text-xl font-bold text-gray-800">Admin Dashboard</h1></div>
+                <a href="admin_logout.php" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow p-6"><h3 class="text-sm font-medium text-gray-500">Total Students</h3><p id="total-students" class="text-3xl font-bold text-gray-900 mt-2">-</p></div>
+            <div class="bg-white rounded-lg shadow p-6"><h3 class="text-sm font-medium text-gray-500">Total Fees Collected</h3><p id="total-paid" class="text-3xl font-bold text-green-600 mt-2">-</p></div>
+            <div class="bg-white rounded-lg shadow p-6"><h3 class="text-sm font-medium text-gray-500">Total Amount Due</h3><p id="total-due" class="text-3xl font-bold text-red-600 mt-2">-</p></div>
+        </div>
+
+        <!-- Bulk Fee Update Section -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+             <h2 class="text-2xl font-semibold text-gray-700 mb-4">Add New Fee to All Students</h2>
+            <form id="bulk-fee-form" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div><label for="fee-component" class="block text-sm font-medium text-gray-700">Fee Component Name</label><input type="text" id="fee-component" placeholder="e.g., Exam Fee" class="mt-1 w-full px-3 py-2 border rounded-md" required></div>
+                <div><label for="fee-amount" class="block text-sm font-medium text-gray-700">Amount (₹)</label><input type="number" id="fee-amount" placeholder="e.g., 1500" class="mt-1 w-full px-3 py-2 border rounded-md" min="1" required></div>
+                <button type="submit" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 h-10">Apply to All</button>
+            </form>
+        </div>
+
+        <!-- Student Management Table -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-gray-700">Student Management</h2>
+                <input type="text" id="search-input" placeholder="Search by name, ID, or course..." class="w-1/2 md:w-1/3 px-4 py-2 border rounded-lg">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Fee (₹)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- UPGRADED Edit Fee Modal -->
+    <div id="edit-modal" class="modal-overlay hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-11/12 max-w-2xl">
+            <h2 class="text-2xl font-bold mb-4">Edit Fee Details</h2>
+            <p class="mb-6">Editing for <strong id="modal-student-name"></strong></p>
+            <form id="edit-fee-form">
+                <input type="hidden" id="modal-student-id">
+                <div id="fee-components-container" class="space-y-3 max-h-60 overflow-y-auto pr-2 border-t border-b py-4">
+                    <!-- Dynamic fee component inputs will be inserted here -->
+                </div>
+                <button type="button" id="add-component-btn" class="mt-4 text-sm text-indigo-600 hover:text-indigo-800 font-medium">+ Add Fee Component</button>
+                <hr class="my-6">
+                <div><label for="modal-amount-paid" class="block text-sm font-medium text-gray-700">Amount Paid (₹)</label><input type="number" step="0.01" id="modal-amount-paid" class="mt-1 block w-full px-3 py-2 border rounded-md" required></div>
+                <div class="flex justify-end space-x-4 mt-8"><button type="button" id="modal-cancel-btn" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg">Cancel</button><button type="submit" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button></div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- View Details Modal -->
+    <div id="view-modal" class="modal-overlay hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-11/12 md:w-1/2 max-w-2xl">
+             <div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-bold">Fee Breakdown</h2><button id="view-modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div>
+            <p class="mb-6">Showing details for <strong id="view-modal-student-name"></strong></p>
+            <div id="view-modal-content" class="max-h-80 overflow-y-auto border-t border-b py-4"></div>
+            <div class="text-right mt-6"><button type="button" id="view-modal-ok-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg">OK</button></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let allStudents = [];
+            const studentTableBody = document.getElementById('student-table-body');
+            const editModal = document.getElementById('edit-modal');
+            const viewModal = document.getElementById('view-modal');
+            const searchInput = document.getElementById('search-input');
+            const formatter = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' });
+
+            const apiFetch = async (url, options = {}) => {
+                const response = await fetch(url, options);
+                if (response.status === 401) { window.location.href = 'admin_login.html'; throw new Error('Unauthorized'); }
+                if (!response.ok) { throw new Error('Network response was not ok'); }
+                return response.json();
+            };
+
+            const renderStudentTable = (students) => {
+                studentTableBody.innerHTML = '';
+                if (!students || students.length === 0) {
+                    studentTableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No students found.</td></tr>`;
+                    return;
+                }
+                students.forEach(student => {
+                    const row = document.createElement('tr');
+                    const dueFee = (student.total_fee || 0) - (student.amount_paid || 0);
+                    const lastUpdated = new Date(student.last_updated).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">${student.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${student.student_id_card}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.course || 'N/A'}</td>
+                        <td class="px-6 py-4 whitespace-nowrap font-medium ${dueFee > 0 ? 'text-red-600' : 'text-green-600'}">${formatter.format(dueFee)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${lastUpdated}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                            <button data-student-id="${student.student_id}" class="view-btn text-blue-600 hover:text-blue-900">View</button>
+                            <button data-student='${JSON.stringify(student)}' class="edit-btn text-indigo-600 hover:text-indigo-900">Edit</button>
+                            <button data-student-id="${student.student_id}" data-student-name="${student.name}" class="delete-btn text-red-600 hover:text-red-900">Delete</button>
+                        </td>`;
+                    studentTableBody.appendChild(row);
+                });
+            };
+
+            const refreshData = () => {
+                apiFetch('admin_api.php?action=get_dashboard_summary').then(summary => {
+                    document.getElementById('total-students').textContent = summary.total_students;
+                    document.getElementById('total-paid').textContent = formatter.format(summary.total_paid);
+                    document.getElementById('total-due').textContent = formatter.format(summary.total_due);
+                });
+                apiFetch('admin_api.php?action=get_all_students').then(students => {
+                    allStudents = students;
+                    renderStudentTable(allStudents);
+                });
+            };
+
+            const createComponentRow = (component = { component_name: '', amount: '' }) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2 component-row';
+                div.innerHTML = `<input type="text" value="${component.component_name}" class="flex-grow p-2 border rounded-md component-name" placeholder="Component Name" required><input type="number" step="0.01" value="${component.amount}" class="w-32 p-2 border rounded-md component-amount" placeholder="Amount" required><button type="button" class="remove-component-btn text-red-500 hover:text-red-700 text-2xl font-bold">&times;</button>`;
+                document.getElementById('fee-components-container').appendChild(div);
+            };
+
+            searchInput.addEventListener('input', e => {
+                const searchTerm = e.target.value.toLowerCase();
+                renderStudentTable(allStudents.filter(s => s.name.toLowerCase().includes(searchTerm) || s.student_id_card.toLowerCase().includes(searchTerm) || (s.course && s.course.toLowerCase().includes(searchTerm))));
+            });
+            
+            studentTableBody.addEventListener('click', async e => {
+                if (e.target.classList.contains('view-btn')) {
+                    const studentId = e.target.dataset.studentId;
+                    const details = await apiFetch(`admin_api.php?action=get_student_details&student_id=${studentId}`);
+                    document.getElementById('view-modal-student-name').textContent = details.student_name;
+                    let content = '<table class="min-w-full"><tbody>';
+                    details.breakdown.forEach(item => { content += `<tr><td class="py-2">${item.component_name}</td><td class="py-2 text-right">${formatter.format(item.amount)}</td></tr>`; });
+                    content += '</tbody></table>';
+                    document.getElementById('view-modal-content').innerHTML = content;
+                    viewModal.classList.remove('hidden');
+                }
+                
+                if (e.target.classList.contains('edit-btn')) {
+                    const student = JSON.parse(e.target.dataset.student);
+                    document.getElementById('modal-student-id').value = student.student_id;
+                    document.getElementById('modal-student-name').textContent = student.name;
+                    document.getElementById('modal-amount-paid').value = parseFloat(student.amount_paid || 0).toFixed(2);
+                    const details = await apiFetch(`admin_api.php?action=get_student_details&student_id=${student.student_id}`);
+                    const container = document.getElementById('fee-components-container');
+                    container.innerHTML = '';
+                    details.breakdown.forEach(item => createComponentRow(item));
+                    editModal.classList.remove('hidden');
+                }
+
+                if (e.target.classList.contains('delete-btn')) {
+                    const studentId = e.target.dataset.studentId;
+                    const studentName = e.target.dataset.studentName;
+                    if (confirm(`Are you sure you want to delete ${studentName}?`)) {
+                        const result = await apiFetch('admin_api.php?action=delete_student', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ student_id: studentId }) });
+                        if(result.success) { alert('Student deleted!'); refreshData(); } else { alert('Error: ' + result.message); }
+                    }
+                }
+            });
+
+            document.getElementById('edit-fee-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const studentId = document.getElementById('modal-student-id').value;
+                const amountPaid = document.getElementById('modal-amount-paid').value;
+                const components = Array.from(document.querySelectorAll('.component-row')).map(row => ({ name: row.querySelector('.component-name').value, amount: row.querySelector('.component-amount').value }));
+                const result = await apiFetch('admin_api.php?action=update_fee_details', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ student_id: studentId, amount_paid: amountPaid, components: components }) });
+                if (result.success) { alert('Fee details updated!'); editModal.classList.add('hidden'); refreshData(); } 
+                else { alert('Error: ' + result.message); }
+            });
+
+            document.getElementById('bulk-fee-form').addEventListener('submit', async e => {
+                e.preventDefault();
+                const component = document.getElementById('fee-component').value;
+                const amount = document.getElementById('fee-amount').value;
+                if (!component || !amount) { alert('Please fill all fields.'); return; }
+                if (confirm(`Add a fee of ${formatter.format(amount)} for '${component}' to ALL students?`)) {
+                    const result = await apiFetch('admin_api.php?action=add_bulk_fee', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ component, amount }) });
+                    if (result.success) { alert('Bulk fee added successfully!'); e.target.reset(); refreshData(); }
+                    else { alert('Error: ' + result.message); }
+                }
+            });
+
+            document.getElementById('add-component-btn').addEventListener('click', () => createComponentRow());
+            document.getElementById('fee-components-container').addEventListener('click', e => { if (e.target.classList.contains('remove-component-btn')) { e.target.parentElement.remove(); }});
+            document.getElementById('modal-cancel-btn').addEventListener('click', () => editModal.classList.add('hidden'));
+            document.getElementById('view-modal-close-btn').addEventListener('click', () => viewModal.classList.add('hidden'));
+            document.getElementById('view-modal-ok-btn').addEventListener('click', () => viewModal.classList.add('hidden'));
+
+            refreshData();
+        });
+    </script>
+</body>
+</html>
+

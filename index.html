@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to University Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg {
+            /* New, more professional background image */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://assets.collegedunia.com/public/image/image_83__8f17d5227df9d519ca04ae7db44d62ce.webp');
+            background-size: cover;
+            background-position: center;
+            /* Increased height for the hero section */
+            height: 90vh; 
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                 <!-- ICON REMOVED AND LOGO ADDED HERE -->
+                 <img src="https://facultytub.com/wp-content/uploads/2023/12/bitswgl_logo.jpeg" alt="BITS Warangal Logo" class="h-12 w-auto">
+                <a href="#" class="text-2xl font-bold text-gray-800">Bits Fee Management System</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="login.html" class="bg-indigo-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-indigo-700 transition-colors">Student Login</a>
+                <a href="admin_login.html" class="hidden sm:block text-gray-600 hover:text-indigo-600">Admin Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white flex items-center justify-center">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Empowering Your Academic Journey</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+                A seamless, unified platform for students to manage fees, access their profile, and stay connected with the university.
+            </p>
+            <div class="mt-8">
+                <a href="login.html" class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105 text-lg">
+                    Access Your Portal
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Portal Features</h2>
+                <p class="text-gray-600 mt-2">Everything you need, all in one place.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover">
+                    <div class="flex justify-center mb-4"><svg class="h-16 w-16 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
+                    <h3 class="text-xl font-semibold mb-2">Fee Management</h3>
+                    <p class="text-gray-600">View detailed fee breakdowns, track payments, and pay your dues online securely and instantly.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover">
+                    <div class="flex justify-center mb-4"><svg class="h-16 w-16 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></div>
+                    <h3 class="text-xl font-semibold mb-2">Student Profile</h3>
+                    <p class="text-gray-600">Access and manage your personal and academic information, ensuring your records are always up-to-date.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover">
+                   <div class="flex justify-center mb-4"><svg class="h-16 w-16 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v1h8z"/></svg></div>
+                    <h3 class="text-xl font-semibold mb-2">Secure & Reliable</h3>
+                    <p class="text-gray-600">Built with modern security standards to protect your data, providing a safe and reliable experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="Students collaborating in a modern university setting" class="rounded-lg shadow-2xl">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-4">Why Choose Our University?</h2>
+                    <p class="text-gray-600 mb-6">We are committed to providing a world-class education that prepares students for successful careers and fulfilling lives.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><div class="flex-shrink-0"><svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><p class="ml-3 text-gray-700"><strong>Expert Faculty:</strong> Learn from industry leaders and renowned academics dedicated to your success.</p></li>
+                        <li class="flex items-start"><div class="flex-shrink-0"><svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><p class="ml-3 text-gray-700"><strong>Career Services:</strong> Gain access to internships, job placements, and networking events.</p></li>
+                        <li class="flex items-start"><div class="flex-shrink-0"><svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><p class="ml-3 text-gray-700"><strong>Vibrant Campus Life:</strong> Join clubs, sports, and cultural events to enrich your student experience.</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Programs Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Our Academic Programs</h2>
+                <p class="text-gray-600 mt-2">Explore our diverse range of faculties and find your passion.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=2070&auto=format&fit=crop" alt="Engineering" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Faculty of Engineering</h3>
+                        <p class="text-gray-600 text-sm">Innovate and build the future with our cutting-edge programs in mechanical, civil, and software engineering.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop" alt="Business" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">School of Business</h3>
+                        <p class="text-gray-600 text-sm">Develop leadership skills and business acumen with programs in finance, marketing, and management.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop" alt="Arts & Sciences" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Arts & Sciences</h3>
+                        <p class="text-gray-600 text-sm">Explore the human experience and the natural world through our diverse arts and sciences programs.</p>
+                    </div>
+                </div>
+                 <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" alt="Health Sciences" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Health Sciences</h3>
+                        <p class="text-gray-600 text-sm">Prepare for a rewarding career in healthcare with our programs in nursing, pharmacy, and public health.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Upcoming Events</h2>
+                <p class="text-gray-600 mt-2">Join us for a variety of academic and cultural events.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md flex items-center space-x-6">
+                        <div class="text-center bg-indigo-600 text-white rounded-lg p-3 w-24">
+                            <p class="text-3xl font-bold">15</p>
+                            <p class="text-sm">OCT</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Annual Tech Symposium 2025</h3>
+                            <p class="text-gray-600">A showcase of the latest innovations from our engineering students.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md flex items-center space-x-6">
+                         <div class="text-center bg-indigo-600 text-white rounded-lg p-3 w-24">
+                            <p class="text-3xl font-bold">22</p>
+                            <p class="text-sm">OCT</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Guest Lecture: The Future of AI</h3>
+                            <p class="text-gray-600">By Dr. Evelyn Reed, a leading researcher in artificial intelligence.</p>
+                        </div>
+                    </div>
+                     <div class="bg-gray-50 p-6 rounded-lg shadow-md flex items-center space-x-6">
+                        <div class="text-center bg-indigo-600 text-white rounded-lg p-3 w-24">
+                            <p class="text-3xl font-bold">05</p>
+                            <p class="text-sm">NOV</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">University Cultural Fest</h3>
+                            <p class="text-gray-600">A celebration of diversity with music, dance, and food from around the world.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">What Our Students Say</h2>
+                <p class="text-gray-600 mt-2">Real stories from members of our university community.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-gray-600 italic mb-4">"The university portal is incredibly easy to use. I can handle my fees and check my details in minutes, which lets me focus more on my studies. The faculty is also top-notch!"</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/100x100/E2E8F0/4A5568?text=PS" alt="Avatar of Priya S.">
+                        <div>
+                            <p class="font-semibold">Priya S.</p>
+                            <p class="text-sm text-gray-500">Computer Science</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-gray-600 italic mb-4">"The career services department was a game-changer for me. They helped me land an amazing internship that turned into a full-time job offer before I even graduated."</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/100x100/E2E8F0/4A5568?text=RK" alt="Avatar of Rohan K.">
+                        <div>
+                            <p class="font-semibold">Rohan K.</p>
+                            <p class="text-sm text-gray-500">Business Administration</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-gray-600 italic mb-4">"I've made lifelong friends through the campus clubs and events. There's a real sense of community here that makes learning and growing so much more enjoyable."</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/100x100/E2E8F0/4A5568?text=AS" alt="Avatar of Anjali M.">
+                        <div>
+                            <p class="font-semibold">Anjali M.</p>
+                            <p class="text-sm text-gray-500">Mechanical Engineering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-indigo-700 text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <h2 class="text-3xl font-bold">Ready to Start Your Journey?</h2>
+            <p class="mt-2 text-indigo-200 max-w-2xl mx-auto">Join a community of innovators, leaders, and thinkers. Register today to create your student account or apply for admission to our esteemed programs.</p>
+            <div class="mt-8 flex justify-center gap-4">
+                <a href="register.html" class="bg-white text-indigo-700 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Register Now</a>
+                <a href="#" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-indigo-700 transition-colors">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 University Portal. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">Designed to make student life simpler.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
